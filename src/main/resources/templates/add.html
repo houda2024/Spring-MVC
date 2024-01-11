@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+<br>
+<div class=container>
+    <div class="card ">
+        <div class="card-header"><h2>Ajouter Book</h2></div>
+        <div class="card-body">
+            <form method="post" th:action="@{/admin/save}" enctype="multipart/form-data" >
+                <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input type="text" name="nom" class="form-control" id="nom" th:value="${books.nom}">
+                    <span class="text-danger" th:errors="${books.nom}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="prix">Prix:</label>
+                    <input type="number" name="prix" class="form-control" id="prix" th:value="${books.prix}">
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" class="form-control" id="quantity" th:value="${books.quantity}">
+                </div>
+                <div class="form-group">
+                    <label for="Themes">Themes</label>
+                    <select class="form-control" id="Themes" name="Themes">
+                        <option selected="selected" hidden=""></option>
+                        <option th:each="c:${themes}" th:value="${c.id}" th:text="${c.nom}"
+                                th:selected="${books.themes!=null && books.themes.id==c.id}"></option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="form-label">Photo</label>
+                    <input type="file" accept="image/*" name="file">
+                    <input type="hidden" name="photo" th:value="${books.nomImage}">
+                </div>
+
+                <br>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <input type="hidden" name="id" th:value="${books.id}">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
